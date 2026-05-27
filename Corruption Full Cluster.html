@@ -1,0 +1,792 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚨 CORRUPTION BUSTER KENYA 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Corruption+Buster+Kenya%22%2C%22short_name%22%3A%22CBK%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230f172a%22%2C%22theme_color%22%3A%22%2310b981%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%3E%3Ccircle%20cx%3D'50'%20cy%3D'50'%20r%3D'50'%20fill%3D'%252310b981'%2F%3E%3Ctext%20x%3D'50'%20y%3D'70'%20font-size%3D'60'%20text-anchor%3D'middle'%3E%F0%9F%87%B0%F0%9F%87%AA%3C%2Ftext%3E%3C%2Fsvg%3E%22%2C%22sizes%22%3A%22100x100%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', system-ui, sans-serif; transition: background 0.3s, color 0.3s; }
+        /* Kenya flag background for dark mode (subtle, vertical stripes) */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to right, #000000 30%, #b91c1c 30%, #b91c1c 60%, #166534 60%);
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: 0;
+        }
+        body.dark::before { opacity: 0.12; }
+        body.light::before { display: none; }
+        /* Ensure content stays above the flag overlay */
+        body > * { position: relative; z-index: 1; }
+        
+        .blockchain-bar { animation: mine 2s infinite alternate; }
+        @keyframes mine { from { background: linear-gradient(90deg, #10b981, #34d399); } to { background: linear-gradient(90deg, #34d399, #10b981); } }
+        .report-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .report-card:hover { transform: translateY(-4px); box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        .glow-text { text-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
+        .category-btn:focus-visible { outline: 2px solid #34d399; outline-offset: 2px; }
+        /* Skeleton loading */
+        .skeleton { background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%); background-size: 200% 100%; animation: skeleton 1.5s ease-in-out infinite; }
+        .light .skeleton { background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%); }
+        @keyframes skeleton { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        /* Confetti */
+        .confetti-piece { position: fixed; width: 10px; height: 10px; background: #10b981; top: -10%; animation: confetti-fall linear forwards; z-index: 9999; }
+        @keyframes confetti-fall { to { top: 110%; transform: rotate(720deg); } }
+        /* Light mode styles */
+        .light body { background: #f0fdf4; color: #1e293b; }
+        .light .bg-slate-900\/70 { background: rgba(255,255,255,0.8); }
+        .light .text-white { color: #1e293b; }
+        .light .text-slate-400 { color: #64748b; }
+        .light .border-emerald-500\/20 { border-color: rgba(16,185,129,0.2); }
+        .light .bg-slate-800 { background: #e2e8f0; }
+        .light .text-emerald-400 { color: #10b981; }
+        .light .bg-slate-900 { background: #f1f5f9; }
+        .light .text-slate-300 { color: #475569; }
+        .light .text-slate-500 { color: #64748b; }
+        .light .border-slate-700 { border-color: #cbd5e1; }
+        .light .bg-emerald-600 { background: #059669; }
+        .light .hover\:bg-emerald-500:hover { background: #10b981; }
+        .light .text-amber-400 { color: #d97706; }
+        .light .text-red-400 { color: #dc2626; }
+        .light .bg-red-500 { background: #ef4444; }
+        .light .bg-amber-500 { background: #f59e0b; }
+        .light .bg-violet-600 { background: #7c3aed; }
+        .light .hover\:bg-violet-500:hover { background: #8b5cf6; }
+        .light .from-slate-900 { --tw-gradient-from: #e2e8f0; }
+        .light .to-emerald-900 { --tw-gradient-to: #d1fae5; }
+        .light .shadow-emerald-500\/50 { --tw-shadow-color: rgba(16,185,129,0.3); }
+
+        /* Center file input button */
+        input[type="file"]::file-selector-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-white min-h-screen" id="body-bg">
+    <!-- Theme & Language switchers -->
+    <div class="fixed top-4 right-4 flex gap-2 z-50">
+        <button onclick="toggleTheme()" class="px-3 py-1 bg-slate-800/80 backdrop-blur rounded-full text-sm flex items-center gap-1">
+            <span id="theme-icon">🌙</span> <span class="hidden sm:inline" id="theme-text">Dark</span>
+        </button>
+        <button onclick="toggleLang()" class="px-3 py-1 bg-slate-800/80 backdrop-blur rounded-full text-sm flex items-center gap-1">
+            🇰🇪 <span id="lang-text">English</span>
+        </button>
+    </div>
+
+    <div class="max-w-7xl mx-auto p-4 md:p-6 relative z-10">
+        <!-- HEADER -->
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8 border-b border-emerald-500/30 pb-6">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center text-3xl shadow-inner">🇰🇪</div>
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-bold tracking-tighter glow-text">CORRUPTION BUSTER KENYA</h1>
+                    <p class="text-emerald-400 text-sm font-medium flex flex-wrap items-center gap-2">
+                        <span>Anonymous • Blockchain • AI • Rewards</span>
+                    </p>
+                </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-4">
+                <div onclick="validateChain()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 rounded-2xl text-sm font-semibold flex items-center gap-2 cursor-pointer transition">
+                    <span id="chain-status" class="text-emerald-300">✅ CHAIN VALID</span>
+                    <span class="text-xs bg-emerald-900 px-3 py-1 rounded-3xl" id="block-count">0 BLOCKS</span>
+                </div>
+                <div class="flex items-center gap-2 bg-slate-900 rounded-3xl px-6 py-3">
+                    <div class="text-sm">Rewards</div>
+                    <div id="reward-points" class="text-3xl font-bold text-amber-400">250</div>
+                    <div class="text-xs text-amber-400/70">KES</div>
+                    <span id="badge-level" class="ml-2 px-2 py-1 bg-amber-400/20 text-amber-400 text-xs rounded-full">Lv.1</span>
+                </div>
+                <button onclick="showDashboard()" 
+                        class="px-8 py-3 bg-white text-slate-900 hover:bg-amber-400 font-semibold rounded-3xl flex items-center gap-2 transition">
+                    <span>DASHBOARD</span>
+                    <span class="text-xl">📊</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- REPORT FORM -->
+            <div class="col-span-12 lg:col-span-5 bg-slate-900/70 backdrop-blur-xl rounded-3xl p-6 md:p-8 border border-emerald-500/20">
+                <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
+                    📸 <span id="form-title">Submit Anonymous Report</span>
+                    <span class="text-xs bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-3xl">Zero-knowledge • Photo verified</span>
+                </h2>
+                
+                <form id="report-form" onsubmit="submitReport(event)" class="space-y-6">
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-2" id="county-label">COUNTY</label>
+                        <select id="county" class="w-full bg-slate-800 border border-slate-700 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-emerald-500">
+                            <!-- 47 counties injected by JS -->
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-2" id="category-label">CATEGORY</label>
+                        <div class="grid grid-cols-3 gap-3" role="radiogroup" aria-label="Corruption category">
+                            <button type="button" onclick="selectCategory(this)" data-value="tender" aria-pressed="false"
+                                    class="category-btn py-4 px-2 md:px-6 bg-slate-800 hover:bg-emerald-600 rounded-2xl text-center transition">Tender</button>
+                            <button type="button" onclick="selectCategory(this)" data-value="budget" aria-pressed="false"
+                                    class="category-btn py-4 px-2 md:px-6 bg-slate-800 hover:bg-emerald-600 rounded-2xl text-center transition">Budget</button>
+                            <button type="button" onclick="selectCategory(this)" data-value="service" aria-pressed="false"
+                                    class="category-btn py-4 px-2 md:px-6 bg-slate-800 hover:bg-emerald-600 rounded-2xl text-center transition">Service</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-2" id="tender-label">TENDER / IFMIS REFERENCE (Optional)</label>
+                        <input type="text" id="tender-ref" placeholder="e.g., MOE/ONT/001/2025-2026"
+                               class="w-full bg-slate-800 border border-slate-700 rounded-3xl px-6 py-4 text-white focus:outline-none focus:border-emerald-500">
+                        <p class="text-[10px] text-slate-400 mt-1">Add IFMIS number for faster investigation</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-2" id="desc-label">DESCRIPTION (min 30 chars)</label>
+                        <textarea id="description" rows="4"
+                                  class="w-full bg-slate-800 border border-slate-700 rounded-3xl px-6 py-4 text-white focus:outline-none focus:border-emerald-500 resize-none"
+                                  placeholder="Suspicious road contract..."></textarea>
+                        <p id="desc-error" class="text-red-400 text-xs mt-1 hidden">⚠️ Minimum 30 characters required</p>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <input type="checkbox" id="ghost-project" class="w-5 h-5 accent-emerald-500 rounded">
+                        <label for="ghost-project" class="text-sm text-slate-300">⚠️ This is a GHOST PROJECT</label>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-2">PHOTO EVIDENCE</label>
+                            <input type="file" id="photo" accept="image/*" 
+                                   class="w-full bg-slate-800 border border-slate-700 rounded-3xl px-6 py-4 text-white file:mr-4 file:py-2 file:px-6 file:rounded-3xl file:border-0 file:bg-emerald-500 file:text-white cursor-pointer">
+                            <p class="text-[10px] text-slate-400 mt-1">SHA-256 verified • Tamper-proof</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-2">LOCATION</label>
+                            <button type="button" onclick="getGPS()" 
+                                    class="w-full h-full bg-emerald-600 hover:bg-emerald-500 rounded-3xl text-sm font-semibold flex items-center justify-center gap-2 transition">
+                                <span id="gps-text">📍 GET GPS</span>
+                                <span id="gps-coords" class="text-xs"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit"
+                            class="w-full py-6 bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-600 hover:to-teal-500 text-slate-950 font-bold text-xl rounded-3xl flex items-center justify-center gap-3 shadow-2xl shadow-emerald-500/50 transition">
+                        <span id="submit-btn-text">SUBMIT ANONYMOUS REPORT</span>
+                        <span class="text-3xl flex items-center">🔒</span>
+                    </button>
+                </form>
+
+                <div class="text-[10px] text-slate-500 mt-6 text-center border-t border-slate-800 pt-4">
+                    ⚖️ Protected under Kenya's Whistleblower Protection Act (No. 2 of 2010). 
+                    All submissions are anonymous.
+                    <br>🇰🇪 April 2026
+                </div>
+            </div>
+
+            <!-- MAP + BLOCKCHAIN -->
+            <div class="col-span-12 lg:col-span-7 grid gap-4">
+                <!-- Map -->
+                <div class="bg-slate-900/70 backdrop-blur-xl rounded-3xl p-4 border border-emerald-500/20 h-64 md:h-80">
+                    <div id="map" class="w-full h-full rounded-2xl"></div>
+                </div>
+                <!-- Blockchain ledger -->
+                <div class="bg-slate-900/70 backdrop-blur-xl rounded-3xl p-6 md:p-8 border border-emerald-500/20">
+                    <div class="flex flex-col sm:flex-row justify-between mb-6 gap-4">
+                        <h2 class="text-2xl font-semibold">🔗 LIVE BLOCKCHAIN LEDGER</h2>
+                        <div class="flex gap-2">
+                            <div onclick="exportForEACC()" class="px-4 py-2 text-xs bg-blue-600 hover:bg-blue-500 text-white rounded-3xl font-bold cursor-pointer transition">📤 EXPORT FOR EACC</div>
+                            <div onclick="mineDemoBlock()" class="px-6 py-2 text-xs bg-amber-400 text-slate-950 rounded-3xl font-bold cursor-pointer hover:scale-105 transition">⛏️ MINE BLOCK</div>
+                        </div>
+                    </div>
+                    <div id="blockchain-chain" class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+                        <!-- JS injected -->
+                    </div>
+                    <div class="text-xs text-emerald-400 mt-4 flex items-center gap-2">
+                        <div class="w-3 h-3 bg-emerald-400 rounded-full animate-pulse"></div>
+                        PROOF-OF-WORK MINING ACTIVE • IMMUTABLE
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI PATTERN DETECTION -->
+            <div class="col-span-12 bg-slate-900/70 backdrop-blur-xl rounded-3xl p-6 md:p-8 border border-emerald-500/20">
+                <h2 class="text-2xl font-semibold mb-6 flex items-center gap-3">
+                    🧠 AI CORRUPTION PATTERN DETECTOR
+                    <span class="text-xs px-4 py-1 bg-violet-500 rounded-3xl">Real‑time clustering</span>
+                </h2>
+                <div id="ai-hotspots" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4"></div>
+                <button onclick="runAIAnalysis()" 
+                        class="mt-6 px-8 py-4 bg-violet-600 hover:bg-violet-500 text-sm font-semibold rounded-3xl transition">🔍 RUN FULL AI SCAN</button>
+            </div>
+
+            <!-- PUBLIC DASHBOARD PREVIEW -->
+            <div onclick="showDashboard()" class="col-span-12 cursor-pointer bg-gradient-to-r from-slate-900 to-emerald-900 rounded-3xl p-6 md:p-8 border border-emerald-500/20 hover:border-emerald-400 transition">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold">📊 PUBLIC TRANSPARENCY DASHBOARD</h2>
+                        <p class="text-emerald-400"><span id="daily-reports">0</span> reports today • <span id="hotspot-count">0</span> hotspots • <span id="total-rewards-distributed">0</span> KES rewards</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-5xl md:text-7xl font-black text-emerald-400/20">LIVE</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD MODAL -->
+    <div id="dashboard-modal" onclick="if(event.target===this)hideDashboard()" class="hidden fixed inset-0 bg-black/80 backdrop-blur-xl z-50 items-center justify-center">
+        <div onclick="event.stopPropagation()" class="bg-slate-900 rounded-3xl max-w-6xl w-full mx-4 max-h-[90vh] overflow-hidden">
+            <div class="p-6 md:p-8 border-b border-slate-700 flex justify-between items-center">
+                <h2 class="text-2xl md:text-3xl font-bold">📋 Full Dashboard</h2>
+                <button onclick="hideDashboard()" class="text-4xl leading-none text-slate-400 hover:text-white transition">×</button>
+            </div>
+            <div class="p-6 md:p-8 overflow-auto max-h-[70vh]" id="dashboard-content"></div>
+        </div>
+    </div>
+
+    <script>
+        // ====================== AUDIO CONTEXT ======================
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+        function playSound(freq, type = 'sine', duration = 0.15) {
+            if (!audioCtx) audioCtx = new AudioCtx();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        }
+
+        // ====================== BLOCKCHAIN ======================
+        class Block {
+            constructor(index, previousHash, data) {
+                this.index = index;
+                this.previousHash = previousHash;
+                this.timestamp = Date.now();
+                this.data = data;
+                this.nonce = 0;
+                this.hash = null;
+            }
+            async calculateHash() {
+                const str = JSON.stringify({ index: this.index, previousHash: this.previousHash, timestamp: this.timestamp, data: this.data, nonce: this.nonce });
+                const buffer = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+                return Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+            }
+            async mine(difficulty = 4) {
+                const target = "0".repeat(difficulty);
+                let hash;
+                while (true) {
+                    hash = await this.calculateHash();
+                    if (hash.startsWith(target)) { this.hash = hash; return hash; }
+                    this.nonce++;
+                    if (this.nonce % 5000 === 0) await new Promise(r => setTimeout(r, 0));
+                }
+            }
+        }
+
+        class Blockchain {
+            constructor() {
+                this.chain = [];
+            }
+            async loadFromStorage() {
+                const saved = await getFromDB('blockchain');
+                if (saved && saved.chain && saved.chain.length > 0) {
+                    this.chain = saved.chain.map(b => {
+                        const block = new Block(b.index, b.previousHash, b.data);
+                        block.timestamp = b.timestamp;
+                        block.nonce = b.nonce;
+                        block.hash = b.hash;
+                        return block;
+                    });
+                    return;
+                }
+                await this.createGenesis();
+            }
+            async createGenesis() {
+                const genesis = new Block(0, "0", { message: "Corruption Buster Kenya Genesis" });
+                await genesis.mine();
+                this.chain.push(genesis);
+                await this.saveChain();
+                this.renderChain();
+            }
+            async addBlock(data) {
+                const prev = this.chain[this.chain.length - 1];
+                const newBlock = new Block(this.chain.length, prev.hash, data);
+                await newBlock.mine();
+                this.chain.push(newBlock);
+                await this.saveChain();
+                this.renderChain();
+                return newBlock.hash;
+            }
+            async isValid() {
+                for (let i = 1; i < this.chain.length; i++) {
+                    const cur = this.chain[i], prev = this.chain[i - 1];
+                    if (cur.hash !== await cur.calculateHash()) return false;
+                    if (cur.previousHash !== prev.hash) return false;
+                }
+                return true;
+            }
+            renderChain() {
+                const container = document.getElementById("blockchain-chain");
+                if (!container) return;
+                container.innerHTML = this.chain.map((block, i) => `
+                    <div class="min-w-[260px] bg-slate-800 rounded-3xl p-5 flex flex-col gap-3 border border-emerald-500/30">
+                        <div class="flex justify-between text-xs">
+                            <span class="font-mono">BLOCK #${block.index}</span>
+                            <span class="text-emerald-400">${block.index === 0 ? 'GENESIS' : 'MINED'}</span>
+                        </div>
+                        <div class="font-mono text-[10px] break-all text-emerald-300">${block.hash ? block.hash.substring(0, 32) : 'MINING...'}...</div>
+                        <div class="text-xs text-slate-400">${new Date(block.timestamp).toLocaleTimeString('en-KE')}</div>
+                        <div class="text-sm line-clamp-2">${JSON.stringify(block.data).substring(0, 80)}...</div>
+                    </div>
+                `).join("");
+                document.getElementById("block-count").textContent = `${this.chain.length} BLOCKS`;
+            }
+            async saveChain() {
+                await putToDB('blockchain', { chain: this.chain });
+            }
+        }
+
+        // ====================== INDEXEDDB ======================
+        function openDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open('CorruptionBusterDB', 1);
+                request.onupgradeneeded = e => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains('state')) db.createObjectStore('state');
+                };
+                request.onsuccess = e => resolve(e.target.result);
+                request.onerror = e => reject(e.target.error);
+            });
+        }
+        async function getFromDB(key) {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction('state', 'readonly');
+                const store = tx.objectStore('state');
+                const request = store.get(key);
+                request.onsuccess = () => resolve(request.result);
+                request.onerror = () => reject(request.error);
+            });
+        }
+        async function putToDB(key, value) {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction('state', 'readwrite');
+                const store = tx.objectStore('state');
+                store.put(value, key);
+                tx.oncomplete = () => resolve();
+                tx.onerror = () => reject(tx.error);
+            });
+        }
+
+        // ====================== GLOBAL STATE ======================
+        let blockchain;
+        let reports = JSON.parse(localStorage.getItem("kenyaReports")) || [];
+        let totalRewards = parseInt(localStorage.getItem("totalRewards")) || 250;
+        let selectedCategory = "tender";
+        let currentLang = 'en';
+        let isDark = true;
+
+        // Translations
+        const i18n = {
+            en: {
+                formTitle: "Submit Anonymous Report",
+                countyLabel: "COUNTY",
+                categoryLabel: "CATEGORY",
+                tenderLabel: "TENDER / IFMIS REFERENCE (Optional)",
+                descLabel: "DESCRIPTION (min 30 chars)",
+                descPlaceholder: "Suspicious road contract...",
+                submitBtn: "SUBMIT ANONYMOUS REPORT",
+                ghostLabel: "⚠️ This is a GHOST PROJECT (no physical implementation exists)",
+                chainValid: "✅ CHAIN VALID",
+                rewards: "Rewards",
+                dashboard: "DASHBOARD",
+                exportEACC: "📤 EXPORT FOR EACC",
+                mineBlock: "⛏️ MINE BLOCK",
+                aiScan: "🔍 RUN FULL AI SCAN",
+            },
+            sw: {
+                formTitle: "Wasilisha Ripoti ya Siri",
+                countyLabel: "KAUNTI",
+                categoryLabel: "KATEGORIA",
+                tenderLabel: "TENDER / IFMIS REFERENCE (Si lazima)",
+                descLabel: "MAELEZO (angalau herufi 30)",
+                descPlaceholder: "Mkataba wa barabara uliotolewa kwa kampuni iliyounganishwa bila zabuni ya wazi...",
+                submitBtn: "WASILISHA RIPOTI YA SIRI",
+                ghostLabel: "⚠️ Huu ni MRADI HEWA (hakuna utekelezaji halisi)",
+                chainValid: "✅ CHAIN SAHIHI",
+                rewards: "Zawadi",
+                dashboard: "DASHBOARD",
+                exportEACC: "📤 HAMISHA KWA EACC",
+                mineBlock: "⛏️ CHIMBA BLOCK",
+                aiScan: "🔍 FANYA UCHAMBUZI KAMILI",
+            }
+        };
+
+        function applyLanguage(lang) {
+            const t = i18n[lang];
+            document.getElementById('form-title').innerText = t.formTitle;
+            document.getElementById('county-label').innerText = t.countyLabel;
+            document.getElementById('category-label').innerText = t.categoryLabel;
+            document.getElementById('tender-label').innerText = t.tenderLabel;
+            document.getElementById('desc-label').innerText = t.descLabel;
+            document.getElementById('description').placeholder = t.descPlaceholder;
+            document.getElementById('submit-btn-text').innerText = t.submitBtn;
+            document.getElementById('ghost-project').nextElementSibling.innerHTML = t.ghostLabel;
+            document.getElementById('chain-status').innerHTML = t.chainValid;
+            document.querySelector('[onclick="exportForEACC()"]').innerHTML = t.exportEACC;
+            document.querySelector('[onclick="mineDemoBlock()"]').innerHTML = t.mineBlock;
+            document.querySelector('[onclick="runAIAnalysis()"]').innerHTML = t.aiScan;
+            const rewardBtn = document.querySelector('.bg-slate-900.rounded-3xl.px-6.py-3');
+            if (rewardBtn) rewardBtn.querySelector('.text-sm').innerText = t.rewards;
+            const dashBtn = document.querySelector('[onclick="showDashboard()"]');
+            if (dashBtn) dashBtn.querySelector('span').innerText = t.dashboard;
+        }
+
+        function toggleLang() {
+            currentLang = currentLang === 'en' ? 'sw' : 'en';
+            document.getElementById('lang-text').innerText = currentLang === 'en' ? 'English' : 'Kiswahili';
+            applyLanguage(currentLang);
+        }
+
+        function toggleTheme() {
+            isDark = !isDark;
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                document.documentElement.classList.remove('light');
+                document.getElementById('body-bg').style.background = ''; // reset to Tailwind dark bg
+                document.getElementById('theme-icon').innerText = '🌙';
+                document.getElementById('theme-text').innerText = 'Dark';
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.classList.add('light');
+                document.getElementById('body-bg').style.background = '#f0fdf4';
+                document.getElementById('theme-icon').innerText = '☀️';
+                document.getElementById('theme-text').innerText = 'Light';
+            }
+        }
+
+        // ====================== COUNTIES ======================
+        const counties = [
+            "001 - Mombasa","002 - Kwale","003 - Kilifi","004 - Tana River","005 - Lamu","006 - Taita-Taveta",
+            "007 - Garissa","008 - Wajir","009 - Mandera","010 - Marsabit","011 - Isiolo","012 - Meru",
+            "013 - Tharaka-Nithi","014 - Embu","015 - Kitui","016 - Machakos","017 - Makueni",
+            "018 - Nyandarua","019 - Nyeri","020 - Kirinyaga","021 - Murang'a","022 - Kiambu",
+            "023 - Turkana","024 - West Pokot","025 - Samburu","026 - Trans Nzoia","027 - Uasin Gishu",
+            "028 - Elgeyo-Marakwet","029 - Nandi","030 - Baringo","031 - Laikipia","032 - Nakuru",
+            "033 - Narok","034 - Kajiado","035 - Kericho","036 - Bomet","037 - Kakamega","038 - Vihiga",
+            "039 - Bungoma","040 - Busia","041 - Siaya","042 - Kisumu","043 - Homa Bay","044 - Migori",
+            "045 - Kisii","046 - Nyamira","047 - Nairobi"
+        ];
+        function populateCounties() {
+            const sel = document.getElementById('county');
+            sel.innerHTML = counties.map(c => `<option value="${c.split(' - ')[1]}">${c}</option>`).join('');
+        }
+
+        // ====================== MAP ======================
+        let map;
+        function initMap() {
+            map = L.map('map').setView([-1.2921, 36.8219], 6);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap'
+            }).addTo(map);
+            updateMapPins();
+        }
+        function updateMapPins() {
+            if (!map) return;
+            map.eachLayer(layer => { if (layer instanceof L.Marker) map.removeLayer(layer); });
+            reports.forEach(r => {
+                const [lat, lon] = r.gps.includes(',') ? r.gps.replace(' (Approx Nairobi)', '').split(',').map(Number) : [-1.2921, 36.8219];
+                L.marker([lat, lon]).addTo(map).bindPopup(`${r.county}: ${r.description.substring(0,60)}...`);
+            });
+        }
+
+        // ====================== CORE FUNCTIONS ======================
+        async function submitReport(e) {
+            e.preventDefault();
+            const county = document.getElementById("county").value;
+            const tenderRef = document.getElementById("tender-ref").value.trim() || "Not provided";
+            const isGhostProject = document.getElementById("ghost-project").checked;
+            const description = document.getElementById("description").value.trim();
+            const descError = document.getElementById("desc-error");
+            
+            if (description.length < 30) {
+                descError.classList.remove("hidden");
+                document.getElementById("description").focus();
+                playSound(250, 'square', 0.2);
+                return;
+            } else descError.classList.add("hidden");
+
+            let photoHash = "no-photo-provided";
+            const fileInput = document.getElementById("photo");
+            if (fileInput.files.length > 0) {
+                const buffer = await fileInput.files[0].arrayBuffer();
+                const hashBuf = await crypto.subtle.digest("SHA-256", buffer);
+                photoHash = Array.from(new Uint8Array(hashBuf)).map(b => b.toString(16).padStart(2, '0')).join('');
+            }
+
+            const gpsLat = localStorage.getItem("lastLat") || "-1.2921";
+            const gpsLon = localStorage.getItem("lastLon") || "36.8219";
+            const gpsApprox = !localStorage.getItem("lastLat") ? " (Approx Nairobi)" : "";
+
+            const reportData = {
+                id: "RPT-" + Date.now().toString(36).toUpperCase(),
+                county, category: selectedCategory, tenderRef, description,
+                isGhostProject, photoHash: photoHash.substring(0,16)+"...",
+                gps: `${gpsLat}, ${gpsLon}${gpsApprox}`,
+                timestamp: new Date().toISOString(),
+                status: "pending",
+                reward: isGhostProject ? 100 : 50
+            };
+
+            const txHash = await blockchain.addBlock({
+                reportId: reportData.id, county, category: selectedCategory,
+                tenderRef, isGhostProject, photoHash, reporter: "Anonymous"
+            });
+            reportData.blockchainTx = txHash;
+            reports.unshift(reportData);
+            localStorage.setItem("kenyaReports", JSON.stringify(reports));
+
+            totalRewards += reportData.reward;
+            localStorage.setItem("totalRewards", totalRewards);
+            document.getElementById("reward-points").textContent = totalRewards;
+            updateBadge();
+
+            updateDashboardStats();
+            updateMapPins();
+            runAIAnalysis();
+
+            playSound(800, 'sine', 0.3);
+            createConfetti();
+
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const original = submitBtn.innerHTML;
+            submitBtn.innerHTML = `✅ REPORT ON BLOCKCHAIN! TX: ${txHash.substring(0,8)}...`;
+            submitBtn.disabled = true;
+            setTimeout(() => {
+                submitBtn.innerHTML = original;
+                submitBtn.disabled = false;
+                e.target.reset();
+                selectedCategory = "tender";
+                document.querySelectorAll(".category-btn").forEach(b => {
+                    b.classList.remove("bg-emerald-600","text-white");
+                    b.setAttribute("aria-pressed","false");
+                });
+                const def = document.querySelector('.category-btn[data-value="tender"]');
+                if (def) { def.classList.add("bg-emerald-600","text-white"); def.setAttribute("aria-pressed","true"); }
+                descError.classList.add("hidden");
+            }, 3000);
+
+            alert(`🚀 Report #${reportData.id} added!\n${isGhostProject ? 'Ghost project flagged - 100 KES bonus!' : 'Earned 50 KES.'}`);
+        }
+
+        function selectCategory(btn) {
+            document.querySelectorAll(".category-btn").forEach(b => {
+                b.classList.remove("bg-emerald-600","text-white");
+                b.setAttribute("aria-pressed","false");
+            });
+            btn.classList.add("bg-emerald-600","text-white");
+            btn.setAttribute("aria-pressed","true");
+            selectedCategory = btn.dataset.value;
+            playSound(600, 'sine', 0.1);
+        }
+
+        function getGPS() {
+            const btn = document.getElementById("gps-text");
+            const coords = document.getElementById("gps-coords");
+            btn.textContent = "📍 LOCATING...";
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(pos => {
+                    const lat = pos.coords.latitude.toFixed(4);
+                    const lon = pos.coords.longitude.toFixed(4);
+                    localStorage.setItem("lastLat", lat);
+                    localStorage.setItem("lastLon", lon);
+                    coords.textContent = `${lat}, ${lon}`;
+                    coords.className = "text-xs text-emerald-400";
+                    btn.textContent = "✅ GPS LOCKED";
+                }, () => {
+                    coords.textContent = "📍 Approx Nairobi";
+                    coords.className = "text-xs text-amber-400";
+                    btn.textContent = "📍 USING APPROX";
+                });
+            } else {
+                coords.textContent = "📍 Not supported";
+                btn.textContent = "📍 GPS FAILED";
+            }
+        }
+
+        function runAIAnalysis() {
+            const container = document.getElementById("ai-hotspots");
+            if (reports.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-8">No reports yet. Submit one to see AI patterns.</div>`;
+                document.getElementById("hotspot-count").textContent = "0";
+                return;
+            }
+            container.innerHTML = `<div class="col-span-full text-center py-8"><div class="skeleton h-4 w-48 mx-auto rounded"></div></div>`;
+            setTimeout(() => {
+                const countyMap = {};
+                reports.forEach(r => {
+                    if (!countyMap[r.county]) countyMap[r.county] = { count:0, ghostCount:0, descs:[] };
+                    countyMap[r.county].count++;
+                    if (r.isGhostProject) countyMap[r.county].ghostCount++;
+                    countyMap[r.county].descs.push(r.description);
+                });
+                const sorted = Object.entries(countyMap).sort((a,b) => b[1].count - a[1].count).slice(0,8);
+                const hotspots = sorted.map(([county, data]) => {
+                    const words = data.descs.join(' ').toLowerCase().split(/\W+/);
+                    const freq = {};
+                    words.forEach(w => { if(w.length>3) freq[w]=(freq[w]||0)+1; });
+                    const topWords = Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,4).map(e=>e[0]).join(' ');
+                    let severity = 'LOW';
+                    if (data.count>=5 || data.ghostCount>=3) severity='HIGH';
+                    else if (data.count>=3 || data.ghostCount>=1) severity='MEDIUM';
+                    return {
+                        county, type: data.ghostCount>0 ? `${data.ghostCount} ghost project(s)` : 'Cluster',
+                        severity, count: data.count, keywords: topWords || 'pending'
+                    };
+                });
+                container.innerHTML = hotspots.map(h => `
+                    <div class="report-card bg-slate-800 rounded-3xl p-6 border ${h.severity==='HIGH'?'border-red-500/50':h.severity==='MEDIUM'?'border-amber-500/50':'border-emerald-500/50'}">
+                        <div class="flex justify-between"><div class="font-semibold">${h.county}</div><div class="px-4 py-1 text-xs rounded-3xl ${h.severity==='HIGH'?'bg-red-500':h.severity==='MEDIUM'?'bg-amber-500':'bg-emerald-500'}">${h.severity}</div></div>
+                        <div class="text-lg font-medium mt-1">${h.type}</div>
+                        <div class="text-sm text-slate-400">${h.count} reports</div>
+                        <div class="text-xs mt-4 font-mono bg-slate-900 px-3 py-2 rounded-2xl truncate">${h.keywords}</div>
+                    </div>
+                `).join("");
+                document.getElementById("hotspot-count").textContent = hotspots.length;
+            }, 800);
+        }
+
+        async function validateChain() {
+            const valid = await blockchain.isValid();
+            const statusEl = document.getElementById("chain-status");
+            statusEl.innerHTML = valid ? (currentLang==='en'?'✅ CHAIN VALID':'✅ CHAIN SAHIHI') : '❌ CHAIN BROKEN';
+            statusEl.style.color = valid ? "#10b981" : "#f43f5e";
+            playSound(valid ? 1000 : 200, 'sine', 0.2);
+            alert(valid ? "✅ Blockchain integrity verified!" : "⚠️ Chain broken!");
+        }
+
+        async function mineDemoBlock() {
+            const hash = await blockchain.addBlock({ type:"DEMO", message:"Citizen report", timestamp: new Date().toISOString() });
+            alert(`⛏️ Demo block mined: ${hash.substring(0,16)}...`);
+            playSound(500, 'triangle', 0.4);
+        }
+
+        function exportForEACC() {
+            if (reports.length === 0) { alert("No reports."); return; }
+            const headers = ["ID","County","Category","Tender/IFMIS","Ghost","Description","GPS","Timestamp","TX","Status"];
+            const csvRows = [headers];
+            reports.forEach(r => csvRows.push([r.id,r.county,r.category,r.tenderRef||"N/A",r.isGhostProject?"YES":"NO",`"${r.description.replace(/"/g,'""')}"`,r.gps,r.timestamp,r.blockchainTx||"Pending",r.status]));
+            const csvContent = csvRows.map(row => row.join(",")).join("\n");
+            const blob = new Blob([csvContent], {type:"text/csv;charset=utf-8;"});
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = `EACC_Report_${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            alert(`📤 Exported ${reports.length} reports.`);
+        }
+
+        function updateDashboardStats() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById("daily-reports").textContent = reports.filter(r => r.timestamp.startsWith(today)).length;
+            document.getElementById("total-rewards-distributed").textContent = totalRewards;
+        }
+
+        function updateBadge() {
+            let level = 1;
+            if (totalRewards >= 1000) level = 5;
+            else if (totalRewards >= 500) level = 4;
+            else if (totalRewards >= 300) level = 3;
+            else if (totalRewards >= 200) level = 2;
+            document.getElementById("badge-level").textContent = `Lv.${level}`;
+        }
+
+        function showDashboard() {
+            const content = document.getElementById("dashboard-content");
+            let html = `<div class="overflow-x-auto"><table class="w-full text-left min-w-[800px]"><thead><tr class="border-b border-slate-700"><th>ID</th><th>COUNTY</th><th>CAT</th><th>IFMIS</th><th>GHOST</th><th>STATUS</th><th>TX</th><th>REWARD</th></tr></thead><tbody>`;
+            reports.forEach(r => {
+                html += `<tr class="border-b border-slate-700/50 hover:bg-slate-800/50"><td class="py-5 font-mono text-sm">${r.id}</td><td>${r.county}</td><td><span class="px-3 py-1 text-xs rounded-3xl bg-emerald-600">${r.category}</span></td><td class="font-mono text-xs">${r.tenderRef||'—'}</td><td>${r.isGhostProject?'<span class="text-red-400 font-bold">⚠️ YES</span>':'—'}</td><td><span class="px-2 py-1 text-xs rounded-3xl bg-amber-600">${r.status}</span></td><td class="font-mono text-xs">${r.blockchainTx?r.blockchainTx.substring(0,12)+'...':'—'}</td><td class="text-amber-400 font-semibold">+${r.reward} KES</td></tr>`;
+            });
+            html += `</tbody></table></div>`;
+            if (reports.length===0) html = `<div class="text-center py-16"><div class="text-6xl mb-4">📋</div><div class="text-xl">No reports yet.</div></div>`;
+            content.innerHTML = html;
+            document.getElementById("dashboard-modal").classList.remove("hidden");
+            document.getElementById("dashboard-modal").classList.add("flex");
+        }
+        function hideDashboard() {
+            document.getElementById("dashboard-modal").classList.add("hidden");
+            document.getElementById("dashboard-modal").classList.remove("flex");
+        }
+
+        function createConfetti() {
+            for (let i=0; i<50; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.left = Math.random()*100 + '%';
+                piece.style.animationDuration = (Math.random()*3+2)+'s';
+                piece.style.backgroundColor = ['#10b981','#f59e0b','#ef4444','#8b5cf6'][Math.floor(Math.random()*4)];
+                piece.style.width = (Math.random()*10+5)+'px';
+                piece.style.height = (Math.random()*10+5)+'px';
+                document.body.appendChild(piece);
+                setTimeout(() => piece.remove(), 5000);
+            }
+        }
+
+        // ====================== INITIALIZATION ======================
+        async function initApp() {
+            populateCounties();
+            blockchain = new Blockchain();
+            await blockchain.loadFromStorage();
+            blockchain.renderChain();
+
+            const defaultBtn = document.querySelector('.category-btn[data-value="tender"]');
+            if (defaultBtn) {
+                defaultBtn.classList.add("bg-emerald-600","text-white");
+                defaultBtn.setAttribute("aria-pressed","true");
+            }
+            runAIAnalysis();
+            updateDashboardStats();
+            updateBadge();
+            document.getElementById("reward-points").textContent = totalRewards;
+            initMap();
+            updateMapPins();
+            applyLanguage('en');
+            // Ensure dark mode flag background is active
+            document.documentElement.classList.add('dark');
+        }
+
+        window.onload = initApp;
+
+        // PWA service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('data:application/javascript,' + encodeURIComponent(
+                    "self.addEventListener('install',e=>e.waitUntil(caches.open('v1').then(c=>c.addAll(['/'])).then(()=>self.skipWaiting())));" +
+                    "self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));" +
+                    "self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));"
+                )).catch(() => {});
+            });
+        }
+    </script>
+</body>
+</html>
